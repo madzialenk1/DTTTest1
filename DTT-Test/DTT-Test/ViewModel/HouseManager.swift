@@ -19,6 +19,8 @@ class HouseManager: NSObject {
     var houses = [House]()
     var filteredHouses = [House]()
     var endRefresh:(()->Void)?
+    var tableViewHidden:(()->Void)?
+    var tableViewVisible:(()-> Void)?
     
     func addData(){
         
@@ -49,6 +51,32 @@ class HouseManager: NSObject {
             
         }
         
+    }
+    
+    @objc func searchRecords(_ textField: UITextView){
+        
+       
+        
+        filteredHouses = []
+        
+        if textField.text == "" {
+            filteredHouses = houses
+        }
+        
+        for i in houses {
+            let address = "\(i.zip) \(i.city)"
+            if address.lowercased().contains(textField.text!.lowercased()) {
+                filteredHouses.append(i)
+            }
+        }
+        if filteredHouses.count == 0 {
+            tableViewHidden!()
+            
+            
+        } else {
+           tableViewVisible!()
+           refreshTableView!()
+        }
     }
     
     func fetchData(complation: @escaping ([House])->()){
