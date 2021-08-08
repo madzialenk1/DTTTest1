@@ -31,7 +31,7 @@ class HouseViewCell: UITableViewCell {
         return UINib(nibName: "HouseViewCell", bundle: nil)
     }
     
-    public func configure (viewModel: CellViewModel){
+    public func configure (viewModel: CellModel){
         
         surfaceLabel.text = "\(viewModel.surface)"
         bathroomNumberLabel.text = "\(viewModel.bathrooms)"

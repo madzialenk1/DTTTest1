@@ -10,6 +10,8 @@ import MapKit
 
 class DetailView: UIView, UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var contentView: UIView!
+    
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var bathroomLabel: UILabel!
     @IBOutlet weak var bedroomNumberLabel: UILabel!
@@ -37,7 +39,9 @@ class DetailView: UIView, UIGestureRecognizerDelegate {
     func commonInit(){
         
         guard let viewFromNib = loadViewFromNib() else { return }
+
         viewFromNib.frame = self.bounds
+        viewFromNib.layer.cornerRadius = 20
         
         mapView.delegate = self
         addSubview(viewFromNib)
@@ -60,11 +64,12 @@ class DetailView: UIView, UIGestureRecognizerDelegate {
 
     }
     
-    func configure(viewModel: DetailViewModel){
+    func configure(viewModel: DetailModel){
         
         configureGesture()
         
         coordinate1 = CLLocationCoordinate2D(latitude: CLLocationDegrees(viewModel.latitude), longitude: CLLocationDegrees(viewModel.longtitue))
+        
         coordinate2 = CLLocationCoordinate2D(latitude: 52, longitude: 5)
         
         priceLabel.text = "$\(viewModel.price)"
@@ -83,6 +88,7 @@ class DetailView: UIView, UIGestureRecognizerDelegate {
     @objc func handleTap(gestureRecognizer: UITapGestureRecognizer) {
         
         if let coordinates = coordinate2 {
+            print("\(coordinate1.latitude)+\(coordinate1.longitude)")
         
         getDirection(lat1: coordinate1.latitude, long1: coordinate1.longitude, lat2: coordinates.latitude, long2: coordinates.longitude)
             addCustomPin(latitude: coordinates.latitude, longitude:coordinates.longitude)
@@ -110,15 +116,16 @@ class DetailView: UIView, UIGestureRecognizerDelegate {
         
         
         directions.calculate { (response,error) in
-            if let response = response{
+          
+            
+            guard let response = response else {return}
             for route in response.routes {
                 self.mapView.addOverlay(route.polyline)
-                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: false)
             }
-            }
-        if let error = error {
-                print("Error")
-            }
+            
+            
+       
         } }
         
     
@@ -139,8 +146,7 @@ class DetailView: UIView, UIGestureRecognizerDelegate {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-       
-        self.layer.cornerRadius = 10
+        contentView.layer.cornerRadius = 20
        
     }
     

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CellViewModel {
+struct CellModel {
     
     let image:String
     let price: Int

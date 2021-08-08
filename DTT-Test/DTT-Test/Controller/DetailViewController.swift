@@ -10,12 +10,12 @@ import CoreLocation
 
 class DetailViewController: UIViewController {
     
+    @IBOutlet weak var detailView: DetailView!
     
-    @IBOutlet weak var detailView: UIView!
     
     @IBOutlet weak var houseView: UIImageView!
     
-    var details: DetailViewModel?
+    var details: DetailModel?
     var detailsView: DetailView?
     var coordinate: CLLocationCoordinate2D?
     
@@ -28,19 +28,19 @@ class DetailViewController: UIViewController {
         self.navigationController?.navigationBar.backIndicatorImage = yourBackImage
         self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
         self.navigationController?.navigationBar.topItem?.title = ""
-        
-        detailsView = DetailView(frame: CGRect(x: 0, y: 0, width: detailView.frame.width, height: detailView.frame.height))
-        self.detailView.addSubview(detailsView!)
-        detailsView!.configure(viewModel: details!)
-        detailsView?.coordinate2 = coordinate
-        detailsView?.layer.cornerRadius = 10
-        detailView.layer.cornerRadius = 10
+
+        detailView.configure(viewModel: details!)
+        detailView.coordinate2 = coordinate
         
         let imageUrlString = "https://intern.docker-dev.d-tt.nl" + details!.image
         guard let imageUrl:URL = URL(string:imageUrlString ) else {return}
         houseView.contentMode = UIView.ContentMode.scaleAspectFill
         houseView.loadImge(withUrl: imageUrl)
         
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        detailView.layer.cornerRadius = 10
     }
     
     

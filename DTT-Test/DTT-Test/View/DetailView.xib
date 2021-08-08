@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="bathroomLabel" destination="uZS-1g-3ao" id="aL0-Bm-mDu"/>
                 <outlet property="bedroomNumberLabel" destination="XUz-xG-jKX" id="xVd-Ig-VTP"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="Dld-2e-ehz"/>
                 <outlet property="descriptionLabel" destination="fWV-uU-wEy" id="yQq-Dg-OmP"/>
                 <outlet property="locationLabel" destination="HOj-9Z-lyy" id="K79-R5-8Q0"/>
                 <outlet property="mapView" destination="0uf-r6-dEf" id="Afs-4s-zhR"/>
@@ -155,6 +156,7 @@
                 <constraint firstItem="Jtn-d3-Kxc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ec2-w5-c4k"/>
                 <constraint firstItem="Jtn-d3-Kxc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kIu-6N-2eo"/>
             </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="69.230769230769226" y="57.582938388625593"/>
         </view>
     </objects>

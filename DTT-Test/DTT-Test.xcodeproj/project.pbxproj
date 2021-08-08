@@ -14,19 +14,19 @@
 		981E882D26B41BBE0036271A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 981E882B26B41BBE0036271A /* LaunchScreen.storyboard */; };
 		981E883626B424390036271A /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981E883526B424390036271A /* House.swift */; };
 		981E883B26B42B3E0036271A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981E883A26B42B3E0036271A /* ViewController.swift */; };
-		981E883E26B42E050036271A /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981E883D26B42E050036271A /* CellViewModel.swift */; };
+		981E883E26B42E050036271A /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981E883D26B42E050036271A /* CellModel.swift */; };
 		981E884026B433330036271A /* HouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981E883F26B433320036271A /* HouseViewController.swift */; };
 		981E884326B54BAF0036271A /* HouseViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981E884126B54BAF0036271A /* HouseViewCell.swift */; };
 		981E884426B54BAF0036271A /* HouseViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 981E884226B54BAF0036271A /* HouseViewCell.xib */; };
-		98AFB25A26B59C1D009AD644 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFB25926B59C1D009AD644 /* DataManager.swift */; };
 		98AFB25E26B5CAB9009AD644 /* NoSearchedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFB25D26B5CAB9009AD644 /* NoSearchedView.swift */; };
 		98AFB26026B5CAE6009AD644 /* NoSearchedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98AFB25F26B5CAE6009AD644 /* NoSearchedView.xib */; };
 		98AFB26226B5F9BF009AD644 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFB26126B5F9BF009AD644 /* DetailView.swift */; };
 		98AFB26426B5F9D4009AD644 /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98AFB26326B5F9D4009AD644 /* DetailView.xib */; };
-		98AFB26626B5FBC7009AD644 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFB26526B5FBC7009AD644 /* DetailViewModel.swift */; };
+		98AFB26626B5FBC7009AD644 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFB26526B5FBC7009AD644 /* DetailModel.swift */; };
 		98AFB26826B69B89009AD644 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFB26726B69B89009AD644 /* DetailViewController.swift */; };
 		98AFB26F26BDC96D009AD644 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFB26E26BDC96D009AD644 /* ExtensionString.swift */; };
 		98AFB27226BDCA4D009AD644 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFB27126BDCA4D009AD644 /* ImageExtension.swift */; };
+		98AFB27426C0198F009AD644 /* HouseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFB27326C0198F009AD644 /* HouseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,19 +39,19 @@
 		981E882E26B41BBE0036271A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		981E883526B424390036271A /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
 		981E883A26B42B3E0036271A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		981E883D26B42E050036271A /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
+		981E883D26B42E050036271A /* CellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
 		981E883F26B433320036271A /* HouseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseViewController.swift; sourceTree = "<group>"; };
 		981E884126B54BAF0036271A /* HouseViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseViewCell.swift; sourceTree = "<group>"; };
 		981E884226B54BAF0036271A /* HouseViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HouseViewCell.xib; sourceTree = "<group>"; };
-		98AFB25926B59C1D009AD644 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		98AFB25D26B5CAB9009AD644 /* NoSearchedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSearchedView.swift; sourceTree = "<group>"; };
+		98AFB25D26B5CAB9009AD644 /* NoSearchedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSearchedView.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		98AFB25F26B5CAE6009AD644 /* NoSearchedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoSearchedView.xib; sourceTree = "<group>"; };
-		98AFB26126B5F9BF009AD644 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.fortran.f90; };
+		98AFB26126B5F9BF009AD644 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		98AFB26326B5F9D4009AD644 /* DetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailView.xib; sourceTree = "<group>"; };
-		98AFB26526B5FBC7009AD644 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		98AFB26526B5FBC7009AD644 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
 		98AFB26726B69B89009AD644 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		98AFB26E26BDC96D009AD644 /* ExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
 		98AFB27126BDCA4D009AD644 /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		98AFB27326C0198F009AD644 /* HouseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +99,8 @@
 		981E883426B423EB0036271A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				981E883D26B42E050036271A /* CellModel.swift */,
+				98AFB26526B5FBC7009AD644 /* DetailModel.swift */,
 				981E883526B424390036271A /* House.swift */,
 			);
 			path = Model;
@@ -117,9 +119,7 @@
 		981E883C26B42DF30036271A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				981E883D26B42E050036271A /* CellViewModel.swift */,
-				98AFB25926B59C1D009AD644 /* DataManager.swift */,
-				98AFB26526B5FBC7009AD644 /* DetailViewModel.swift */,
+				98AFB27326C0198F009AD644 /* HouseManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -240,7 +240,6 @@
 			files = (
 				98AFB25E26B5CAB9009AD644 /* NoSearchedView.swift in Sources */,
 				981E883B26B42B3E0036271A /* ViewController.swift in Sources */,
-				98AFB25A26B59C1D009AD644 /* DataManager.swift in Sources */,
 				98AFB27226BDCA4D009AD644 /* ImageExtension.swift in Sources */,
 				98AFB26826B69B89009AD644 /* DetailViewController.swift in Sources */,
 				98AFB26226B5F9BF009AD644 /* DetailView.swift in Sources */,
@@ -248,9 +247,10 @@
 				981E882126B41BB80036271A /* AppDelegate.swift in Sources */,
 				981E884026B433330036271A /* HouseViewController.swift in Sources */,
 				98AFB26F26BDC96D009AD644 /* ExtensionString.swift in Sources */,
-				981E883E26B42E050036271A /* CellViewModel.swift in Sources */,
+				981E883E26B42E050036271A /* CellModel.swift in Sources */,
 				981E883626B424390036271A /* House.swift in Sources */,
-				98AFB26626B5FBC7009AD644 /* DetailViewModel.swift in Sources */,
+				98AFB26626B5FBC7009AD644 /* DetailModel.swift in Sources */,
+				98AFB27426C0198F009AD644 /* HouseManager.swift in Sources */,
 				981E882326B41BB80036271A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

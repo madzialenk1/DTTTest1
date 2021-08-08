@@ -91,26 +91,25 @@
                                     <constraint firstAttribute="height" constant="200" id="0SJ-AV-kcM"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oJV-5h-fKT">
-                                <rect key="frame" x="0.0" y="141" width="414" height="755"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJs-Ks-xFg" customClass="DetailView" customModule="DTT_Test" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="181" width="414" height="715"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
-                                <color key="tintColor" systemColor="linkColor"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ecj-wb-FQO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="oJV-5h-fKT" secondAttribute="bottom" id="1dU-YJ-OPD"/>
                             <constraint firstItem="Mmg-x2-maS" firstAttribute="leading" secondItem="Ecj-wb-FQO" secondAttribute="leading" id="2w5-Zy-RuQ"/>
+                            <constraint firstItem="CJs-Ks-xFg" firstAttribute="top" secondItem="Ecj-wb-FQO" secondAttribute="top" constant="93" id="8sf-yw-EO7"/>
                             <constraint firstItem="Mmg-x2-maS" firstAttribute="trailing" secondItem="Ecj-wb-FQO" secondAttribute="trailing" id="IdB-g5-ONJ"/>
-                            <constraint firstItem="oJV-5h-fKT" firstAttribute="leading" secondItem="Ecj-wb-FQO" secondAttribute="leading" id="dbI-BK-JvI"/>
+                            <constraint firstAttribute="bottom" secondItem="CJs-Ks-xFg" secondAttribute="bottom" id="Xs2-Wk-mq2"/>
+                            <constraint firstItem="CJs-Ks-xFg" firstAttribute="leading" secondItem="Ecj-wb-FQO" secondAttribute="leading" id="gRz-r8-FnR"/>
                             <constraint firstItem="Mmg-x2-maS" firstAttribute="top" secondItem="HPg-wJ-Fri" secondAttribute="top" id="kg4-TH-wSd"/>
-                            <constraint firstItem="oJV-5h-fKT" firstAttribute="top" secondItem="Ecj-wb-FQO" secondAttribute="top" constant="53" id="mRp-ed-0UJ"/>
-                            <constraint firstItem="Ecj-wb-FQO" firstAttribute="trailing" secondItem="oJV-5h-fKT" secondAttribute="trailing" id="yjV-qy-sVI"/>
+                            <constraint firstItem="CJs-Ks-xFg" firstAttribute="trailing" secondItem="Ecj-wb-FQO" secondAttribute="trailing" id="xj1-jC-bIl"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="detailView" destination="oJV-5h-fKT" id="lTb-RJ-Q2N"/>
+                        <outlet property="detailView" destination="CJs-Ks-xFg" id="8xe-n7-Y4L"/>
                         <outlet property="houseView" destination="Mmg-x2-maS" id="1BH-fi-5Rh"/>
                     </connections>
                 </viewController>
@@ -233,9 +232,6 @@
         <image name="info-button-2" width="25" height="25"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

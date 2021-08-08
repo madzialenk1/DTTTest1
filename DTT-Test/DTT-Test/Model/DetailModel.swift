@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct DetailViewModel{
+struct DetailModel{
     
     let image: String
     let price: Int
