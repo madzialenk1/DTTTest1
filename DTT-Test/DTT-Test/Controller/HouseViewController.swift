@@ -8,92 +8,105 @@
 import UIKit
 import CoreLocation
 
-class HouseViewController: UIViewController{
+class HouseViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var txtSearchBar: UITextField!
-    @IBOutlet weak var viewTableView: UIView!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var txtSearchBar: UITextField!
+    @IBOutlet private weak var viewTableView: UIView!
     
     
-    let houseManager = HouseManager()
-    var newView = UIView()
+    private let houseManager = HouseManager()
+    private var newView = UIView()
     
-    let refreshControl = UIRefreshControl()
+    private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
-        
-        houseManager.refreshTableView = { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
-        
-        
-        houseManager.endRefresh = {[weak self] in
-            DispatchQueue.main.async {
-                self!.refreshControl.endRefreshing()
-            }
-        }
-        
-        newView = NoSearchedView(frame: CGRect(x: 0, y: 0, width: viewTableView.frame.width, height: viewTableView.frame.height))
-        viewTableView.insertSubview(newView, at: 0)
-        newView.isHidden = true
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        txtSearchBar.delegate = self
-        
-        
-        tableView.register(HouseViewCell.nib(), forCellReuseIdentifier: "houseCell")
-        houseManager.addData()
+        setUpDelegetes()
+        setUpView()
         manageRefresh()
-        addRightImageTo(textField: txtSearchBar, img: UIImage(named: "search")!.withAlignmentRectInsets(UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 10)))
-        
-        txtSearchBar.addTarget(self, action: #selector(houseManager.searchRecords(_ :)), for: .editingChanged)
-        
-        houseManager.manageLocationPermissions()
-        
-        
-        
-        houseManager.tableViewHidden = {[weak self] in
-            self!.tableView.isHidden = true
-            self!.newView.isHidden = false
-        }
-        houseManager.tableViewVisible = {[weak self] in
-            self!.newView.isHidden = true
-            self!.tableView.isHidden = false
-            
-        }
+        addRightImageTo(textField: txtSearchBar, img: UIImage(named: Constants.searchImage)!
+                            .withAlignmentRectInsets(UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 10)))
+        manageDataFromViewModel()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        super.viewWillAppear(true)
-        self.tabBarController?.tabBar.isHidden = false
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
     
-    func manageRefresh(){
+    
+    @IBAction func editingChanged(_ sender: UITextField) {
+        houseManager.searchRecords(sender)
+    }
+    
+    private func setUpDelegetes(){
+        tableView.dataSource = self
+        tableView.delegate = self
+        txtSearchBar.delegate = self
         
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+    }
+    
+    private func setUpView(){
+        navigationController?.navigationBar.isHidden = true
+        newView = NoSearchedView(frame: CGRect(x: 0, y: 0, width: viewTableView.frame.width, height: viewTableView.frame.height))
+        viewTableView.insertSubview(newView, at: 0)
+        newView.isHidden = true
+        tableView.register(HouseViewCell.nib(), forCellReuseIdentifier: Constants.houseCellId)
+    }
+    
+    private func manageDataFromViewModel(){
+        
+        houseManager.refreshTableView = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+        houseManager.endRefresh = {[weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
+        }
+        houseManager.tableViewHidden = {[weak self] in
+            guard let self = self else { return }
+            self.tableView.isHidden = true
+            self.newView.isHidden = false
+        }
+        houseManager.tableViewVisible = {[weak self] in
+            guard let self = self else { return }
+            self.newView.isHidden = true
+            self.tableView.isHidden = false
+            
+        }
+        
+        houseManager.addData()
+        houseManager.manageLocationPermissions()
+        
+    }
+    
+    private func manageRefresh(){
+        
+        refreshControl.attributedTitle = NSAttributedString(string: Constants.refreshAlert)
         refreshControl.addTarget(self, action: #selector(houseManager.refresh(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }
     
-    func manageSearchButton(){
+    private func manageSearchButton(){
         
-        if let button = txtSearchBar.value(forKey: "clearButton") as? UIButton {
+        if let button = txtSearchBar.value(forKey: Constants.clearButtonAsset) as? UIButton {
             button.tintColor = .black
-            
-            button.setImage(UIImage(named: "close-2")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            button.setImage(UIImage(named: Constants.closeButton)?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
     }
     
     
-    func addRightImageTo(textField: UITextField,img: UIImage){
+    private func addRightImageTo(textField: UITextField,img: UIImage){
         
         let rightImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height))
         rightImageView.contentMode = .scaleToFill
@@ -103,37 +116,33 @@ class HouseViewController: UIViewController{
         
     }
     
-    
-    
-    
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let destination = segue.destination as? DetailViewController {
-            
-            let model = houseManager.filteredHouses[tableView.indexPathForSelectedRow!.row]
-            
-            let distance = houseManager.findDistance(firstLocation: CLLocationCoordinate2D(latitude: Double(model.latitude), longitude: Double(model.longitude)), secondLocation: houseManager.locationCoordinates)
-            
-            destination.details = DetailModel(image: model.image, price: model.price, bathrooms: model.bathrooms, bedrooms: model.bedrooms, surface: model.size, location: distance, description: model.description, latitude: model.latitude, longtitue: model.longitude)
-            
-            destination.coordinate = houseManager.locationCoordinates
-            
-            
-            tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: true)
+            if let index = tableView.indexPathForSelectedRow{
+                
+                let model = houseManager.filteredHouses[index.row]
+                let coordinatesFirst = CLLocationCoordinate2D(latitude: Double(model.latitude), longitude: Double(model.longitude))
+                let coordinatesSecond = houseManager.locationCoordinates
+                
+                let distance = houseManager.findDistance(firstLocation: coordinatesFirst, secondLocation: coordinatesSecond )
+                
+                destination.details = DetailModel(image: model.image, price: model.price, bathrooms: model.bathrooms, bedrooms: model.bedrooms, surface: model.size, location: distance, description: model.description, latitude: model.latitude, longtitue: model.longitude)
+                
+                destination.coordinate = houseManager.locationCoordinates
+                
+                
+                tableView.deselectRow(at: index, animated: true)
+            }
             
         }
     }
-    
-    
-    
 }
 
-extension HouseViewController: UITableViewDataSource{
+extension HouseViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return houseManager.filteredHouses.count
+        houseManager.filteredHouses.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -141,7 +150,7 @@ extension HouseViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "houseCell", for: indexPath) as! HouseViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.houseCellId, for: indexPath) as! HouseViewCell
         
         let model = houseManager.filteredHouses[indexPath.row]
         
@@ -149,22 +158,21 @@ extension HouseViewController: UITableViewDataSource{
         
         cell.configure(viewModel: CellModel(image: model.image, price: model.price, bedrooms: model.bedrooms, bathrooms: model.bathrooms, surface: model.size, location: distance, address: "\(model.zip) \(model.city)"))
         cell.selectionStyle = .none
-        
         return cell
+        
     }
 }
 
 
-extension HouseViewController: UITableViewDelegate{
+extension HouseViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "detail", sender: self)
+        performSegue(withIdentifier: Constants.detailSegueId, sender: self)
         
     }
 }
 
-
-extension HouseViewController: UITextFieldDelegate{
+extension HouseViewController: UITextFieldDelegate {
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         txtSearchBar.resignFirstResponder()

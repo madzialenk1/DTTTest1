@@ -40,6 +40,9 @@
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
+                                <connections>
+                                    <action selector="editingChanged:" destination="Une-Tj-iAM" eventType="editingChanged" id="ha7-Pv-6UN"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DTT REAL ESTATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOi-9i-4En">
                                 <rect key="frame" x="40" y="60" width="354" height="22.5"/>

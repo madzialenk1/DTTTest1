@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct House: Codable {
+struct House: Decodable {
     
     let id: Int
     let image: String

@@ -13,24 +13,22 @@ var imageCache = NSCache<AnyObject, AnyObject>()
 extension UIImageView {
     func loadImge(withUrl url: URL) {
         
-        if let image = imageCache.object(forKey: url.relativeString as NSString) as? UIImage{
-            
+        if let image = imageCache.object(forKey: url.relativeString as NSString) as? UIImage {
             self.image = image
             imageCache.setObject(image, forKey: url.relativeString as NSString)
             return
         }
         
         DispatchQueue.global().async { [weak self] in
-            if let imageData = try? Data(contentsOf: url) {
-                if let image = UIImage(data: imageData) {
+            guard let imageData = try? Data(contentsOf: url) else { return }
+            guard let image = UIImage(data: imageData) else { return }
                     DispatchQueue.main.async {
-                        
                         self?.image = image
                         imageCache.setObject(image, forKey: url.relativeString as NSString)
                         
                     }
-                }
-            }
+                
+            
             
         }
     }

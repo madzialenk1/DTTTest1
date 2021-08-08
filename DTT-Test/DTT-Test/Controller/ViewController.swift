@@ -12,18 +12,14 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var textView: UITextView!
     
+    private let detailManager = DetailManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        addHyperLink()
-
+        detailManager.addHyperLink(textView: textView)
     }
     
-    func addHyperLink(){
-        let path = "https://www.d-tt.nl/"
-        let text = textView.text ?? ""
-        let attributedString = NSAttributedString.makeHyperLink(for: path, in: text, as: "https://www.d-tt.nl/")
-        textView.attributedText = attributedString
-    }
+ 
    
 }
 

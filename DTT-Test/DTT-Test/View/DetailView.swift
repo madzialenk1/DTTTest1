@@ -25,12 +25,12 @@ class DetailView: UIView, UIGestureRecognizerDelegate {
     var coordinate2: CLLocationCoordinate2D?
     
     
-    override init(frame: CGRect) {
+    override init(frame: CGRect){
         super.init(frame: frame)
         commonInit()
     }
     
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder){
         super.init(coder: coder)
         commonInit()
         
@@ -39,7 +39,7 @@ class DetailView: UIView, UIGestureRecognizerDelegate {
     func commonInit(){
         
         guard let viewFromNib = loadViewFromNib() else { return }
-
+        
         viewFromNib.frame = self.bounds
         viewFromNib.layer.cornerRadius = 20
         
@@ -48,20 +48,20 @@ class DetailView: UIView, UIGestureRecognizerDelegate {
         
     }
     
-    func loadViewFromNib() -> UIView? {
+    func loadViewFromNib() -> UIView?{
         let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: "DetailView", bundle: bundle)
+        let nib = UINib(nibName: Constants.viewIdentifier, bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
     
     func configureGesture(){
-        let gestureRecognizer = UITapGestureRecognizer(
-            target: self, action:#selector(handleTap))
+        let gestureRecognizer = UITapGestureRecognizer(target: self,
+                                                       action:#selector(handleTap))
         gestureRecognizer.delegate = self
         gestureRecognizer.numberOfTapsRequired = 1
         mapView.addGestureRecognizer(gestureRecognizer)
         mapView.isZoomEnabled = false
-
+        
     }
     
     func configure(viewModel: DetailModel){
@@ -79,21 +79,18 @@ class DetailView: UIView, UIGestureRecognizerDelegate {
         locationLabel.text = "\(viewModel.location)"
         sizeLabel.text = "\(viewModel.surface)"
         
-        mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: Double(viewModel.latitude), longitude: Double(viewModel.longtitue)), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)) ,animated: false)
+        mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: Double(viewModel.latitude), longitude: Double(viewModel.longtitue)), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)), animated: false)
         addCustomPin(latitude: Double(viewModel.latitude),longitude: Double(viewModel.longtitue))
         
         
     }
     
-    @objc func handleTap(gestureRecognizer: UITapGestureRecognizer) {
+    @objc func handleTap(gestureRecognizer: UITapGestureRecognizer){
         
         if let coordinates = coordinate2 {
-            print("\(coordinate1.latitude)+\(coordinate1.longitude)")
-        
-        getDirection(lat1: coordinate1.latitude, long1: coordinate1.longitude, lat2: coordinates.latitude, long2: coordinates.longitude)
-            addCustomPin(latitude: coordinates.latitude, longitude:coordinates.longitude)
+            getDirection(lat1: coordinate1.latitude, long1: coordinate1.longitude, lat2: coordinates.latitude, long2: coordinates.longitude)
+            addCustomPin(latitude: coordinates.latitude, longitude: coordinates.longitude)
         }
-            
         
     }
     
@@ -109,32 +106,24 @@ class DetailView: UIView, UIGestureRecognizerDelegate {
         
         let location1 = CLLocationCoordinate2D(latitude: lat1, longitude: long1)
         let location2 = CLLocationCoordinate2D(latitude: lat2, longitude: long2)
-        
-        let request = createDirectionRequest(to: location2,from:location1)
+        let request = createDirectionRequest(to: location2, from: location1)
         let directions = MKDirections(request: request)
-        
-        
-        
-        directions.calculate { (response,error) in
-          
-            
+
+        directions.calculate {[weak self] (response, error) in
+            guard let self = self else { return }
             guard let response = response else {return}
             for route in response.routes {
                 self.mapView.addOverlay(route.polyline)
                 self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: false)
             }
-            
-            
-       
-        } }
+        }
+    }
+
+    func createDirectionRequest(to coordinates: CLLocationCoordinate2D,
+                                from location : CLLocationCoordinate2D) -> MKDirections.Request {
         
-    
-    
-    func createDirectionRequest(to: CLLocationCoordinate2D,
-                                from : CLLocationCoordinate2D)->MKDirections.Request{
-        
-        let destinationCoordinate = to
-        let startingLocation = MKPlacemark(coordinate: from)
+        let destinationCoordinate = coordinates
+        let startingLocation = MKPlacemark(coordinate: location)
         let destination = MKPlacemark(coordinate: destinationCoordinate)
         
         let request = MKDirections.Request()
@@ -144,10 +133,11 @@ class DetailView: UIView, UIGestureRecognizerDelegate {
         request.requestsAlternateRoutes = false
         return request
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.layer.cornerRadius = 20
-       
+        
     }
     
 }
@@ -161,16 +151,16 @@ extension DetailView: MKMapViewDelegate{
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "custom")
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Constants.annotationIdentifier)
         
         if annotationView==nil{
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "custom")
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: Constants.annotationIdentifier)
             annotationView?.canShowCallout = true
             
         } else {
             annotationView?.annotation = annotation
         }
-        annotationView?.image = UIImage(named: "pin-red")
+        annotationView?.image = UIImage(named: Constants.pinRed)
         
         return annotationView
     }
